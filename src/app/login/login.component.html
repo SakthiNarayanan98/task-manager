@@ -1,0 +1,21 @@
+<div class="login-container">
+    <h2>Login</h2>
+    <form >
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required>
+  
+      <label for="password">Password</label>
+      <input matInput [type]="hide ? 'password' : 'text'">
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+      <div class="forgot-password">
+        <a routerLink="/forgot-password">Forgot Password?</a>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+    <div class="text-center login" style="color: white;">
+      Already have an account? <a routerLink="/sign-up">Sign-Up</a> here.
+    </div>
+  </div>
+  

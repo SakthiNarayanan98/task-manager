@@ -1,0 +1,75 @@
+/* login.component.css */
+
+.login-container {
+    position: relative;
+    max-width: 350px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* text-align: center; */
+    margin-top: 90px;
+    background-color:rgb(195, 191, 191);
+  }
+  h2{
+    background-color: white;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 69px;
+    margin-left: 122px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .forgot-password {
+    margin-top: -10px;
+    margin-left: 230px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #007bff;
+    /* margin-right: 5px; */
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .password-container {
+    position: relative;
+  }
+
+  .sign-up{
+    color: #fff;
+  }
+
+
+  
+  
