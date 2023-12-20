@@ -1,0 +1,53 @@
+   <div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card row shadow-lg p-3 mb-5 bg-white rounded">
+      <div class="card-body">
+        <h2 class="card-title text-center mb-4">Login</h2>
+        <form [formGroup]="loginForm">
+          <div class="mb-3 col">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" formControlName="userName" placeholder="Enter your username">
+            <div *ngIf="loginForm.get('userName')?.hasError('required') && loginForm.get('userName')?.touched" class="text-danger">
+              UserName is required.
+            </div>
+            <div *ngIf="loginForm.get('userName')?.hasError('userName') && loginForm.get('userName')?.touched" class="text-danger">
+              Please enter a valid UserName.
+            </div>
+          </div>
+
+          <div class="mb-3 col">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" id="email" formControlName="email" #userName placeholder="Enter your email">
+            <div *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched" class="text-danger">
+              Email is required.
+            </div>
+            <div *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched" class="text-danger">
+              Please enter a valid email.
+            </div>
+          </div>
+  
+          <div class="mb-3 col position-relative">
+            <label for="password" class="form-label">Password</label>
+           <input  #passwordInput #userPassword type="password" class="form-control" formControlName="password" id="password" placeholder="Enter Your Password">
+           <!-- <span class="input-group-text position-absolute end-0" style="cursor: pointer;" (click)="togglePassword(passwordInput)"> -->
+            <i class="bi bi-eye position-absolute top-50 end-0 my-3 mx-2 translate-middle-y" style="cursor: pointer;" (click)="togglePassword(passwordInput)"></i>
+             <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" class="text-danger">
+              Password is required.
+            </div>
+
+            </div>
+  
+          <div class="d-grid col">
+            <button type="submit" class="btn btn-primary" (click)="authService.Login(userName.value, userPassword.value)">Login</button>
+          </div>
+         
+        </form>
+        <div class="d-flex justify-content-end mb-3">
+          <a routerLink="/forgot">Forgot Password?</a>
+        </div>
+        <div class="text-center mt-2">
+          Already have an account? <a routerLink="/sign-up">Sign-Up</a> here.
+        </div>
+      </div>
+    </div>
+    
+   </div>

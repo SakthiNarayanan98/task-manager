@@ -1,0 +1,68 @@
+<div class="container">
+    <form [formGroup]="registrationForm">
+        <div class="row">
+            <div class=" col-6 card mt-5 w-25 mt-5">
+                <div class="card-body h-25">
+                    <div class="col">
+                        <div class="card-col text-center mb-4">
+                            <h1>My Profile</h1>
+                        </div>
+                    </div>
+                    <form>
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="avatar-upload position-relative ">
+                                    <input type="file" id="file" formControlName="file" accept=".png, .jpg, .jpeg" #fileInput
+                                        (change)="uploadFile($event)" class="d-none" />
+                                    <div class="avatar-edit rounded-circle"></div>
+                                    <div class="avatar-preview rounded-circle overflow-hidden border border-2 border-gray"
+                                        style="width: 250px; height: 250px;">
+                                        <img [src]="imageUrl ? imageUrl : '../../assets/image/men.png.png'"
+                                            class="w-100 h-100 rounded-circle .bg-secondary" alt="preview-image">
+                                    </div>
+                                    <div class="col mt-3 mb-4 text-center">
+                                        <label class="text-center mt-3">{{profileName}}</label>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class=" col-6 card mt-5 w-75 mx-auto">
+                <div class="card-body row">
+                    <div class="col-md-6">
+                        <div class="form-group mt-4">
+
+                            <input type="text" class="form-control" formControlName="firstname" id="firstname" placeholder="Enter your FirstName">
+                        </div>
+                        <div class="form-group mt-4">
+
+                            <input type="text" class="form-control" formControlName="lastname" id="lastname" placeholder="Enter your LastName">
+                        </div>
+                        <div class="form-group mt-4">
+
+                            <input type="email" class="form-control" formControlName="email" id="email" placeholder="Enter your Email">
+                        </div>
+                        <div class="form-group mt-4">
+
+                            <input type="date" class="form-control" formControlName="birth" id="birth" placeholder="Enter your Birthdate">
+                        </div>
+                        <div class="form-group mt-4">
+
+                            <input type="text" class="form-control" formControlName="userId" id="userId" placeholder="Enter your User ID">
+                        </div>
+                        <div class="form-group mt-4">
+
+                            <input type="text" class="form-control" formControlName="number" id="number" placeholder="Enter your Phone Number">
+                        </div>
+                        <button type="button" class="btn btn-primary mt-3" (click)="onSubmit()">Upload Profile</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>

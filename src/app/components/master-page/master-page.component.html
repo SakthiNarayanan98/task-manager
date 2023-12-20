@@ -1,0 +1,13 @@
+<div class="h-100 overflow-hidden">
+  <app-header></app-header>
+  
+  <div style="height: calc(100% - 80px); display: flex;">
+    <app-sidebar></app-sidebar>
+
+    <div style="flex-grow: 1; overflow-y: auto; padding: 10px;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</div>

@@ -1,0 +1,22 @@
+<mat-sidenav-container class="h-100 justify-content-center align-items-center bg-primary">
+  <!-- Sidenav -->
+  <mat-sidenav mode="side" opened style="background-color: rgb(221, 218, 218);">
+    <mat-nav-list class="justify-content-center align-items-center text-center ms-4 me-4 ">
+      <a mat-list-item routerLink="/auth" routerLinkActive="active" class="d-flex align-items-center justify-content-center">
+        <mat-icon class="rounded-circle">account_circle</mat-icon>
+      </a>
+      <a>{{sakthi}}</a>
+      <hr class="my-3 border-3">
+      <a mat-list-item routerLink="/auth/dashboard" routerLinkActive="active">DashBoard</a>
+      <a mat-list-item (click)="handleSidebarItemClick()" routerLink="/auth/profile" routerLinkActive="active">Profile</a>
+      <a mat-list-item routerLink="/auth/task" routerLinkActive="active">Task</a>
+      <a mat-list-item (click)="authservice.Logout()" routerLinkActive="active">Logout</a>
+      <a class="mt-5">
+        <i class="fa fa-facebook me-3 mt-5"></i>
+        <i class="fa fa-twitter me-3 "></i>
+        <i class="fa fa-linkedin me-3"></i>
+        <i class="fa fa-github"></i>
+    </a>
+    </mat-nav-list>
+  </mat-sidenav>
+</mat-sidenav-container>

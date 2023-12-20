@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="card-body">
+      <div class="row  justify-content-end mx-3">
+        <button mat-icon-button  (click)="openDialogWithTemplateRef(dialogContent)">
+          <img src="https://map-vfs-s3.s3.amazonaws.com/testing/images/Add.jpg" alt="img" class="padding">
+        </button>
+      </div>
+      
+        <mat-card class="mt-5">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">S.no</th>
+                    <th scope="col">TaskName</th>
+                    <th scope="col">EstimateHr</th>
+                    <th scope="col">CreatedDate</th>
+                    <th scope="col">EndDate</th>
+                    <th scope="col">Start</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let task of tasks; let i = index">
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>{{ task.taskName }}</td>
+                        <td>{{ task.estimateHr }}</td>
+                        <td>{{ task.createdDate }}</td>
+                        <td>{{ task.endDate }}</td>
+                        <td>{{ task.start }}</td>
+                        <td>{{ task.edit }}</td>
+                        <td>{{ task.delete }}</td>
+                    </tr>
+                </tbody>
+              </table>
+        </mat-card>
+    </div>
+</div>
+
+<ng-template #dialogContent>
+  <div class="example-container">
+    <h5 mat-dialog-title class="p-2 px-3" style="background-color: #3b4f6a; color: #fff;">Alert</h5>
+    <mat-dialog-content class="mx-3 my-2 text-center">
+      <p>Are you sure, want to Delete?</p>
+    </mat-dialog-content>
+    <mat-dialog-actions class="px-2 mb-2 text-center">
+      <button mat-button class="button-save">Yes</button>
+      <button mat-button class="button-cancel" mat-dialog-close>Cancel</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>
+
+

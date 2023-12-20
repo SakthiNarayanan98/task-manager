@@ -1,27 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from "../app/login/login.component";
-import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
+import { LoginComponent } from "./components/login/login.component";
+import { ForgotPasswordComponent } from "./components/forgot-password/forgot-password.component";
+import { SignUpComponent } from "./components/sign-up/sign-up.component";
+import { AuthGuard } from "./core/guard/auth.guard";
+import { SecureInnerPageGuard } from "./core/guard/secure-inner-page.guard";
 
 const routes: Routes = [
-  {
-    path:'sakthi',
+ {path:'login',component: LoginComponent, canActivate: [SecureInnerPageGuard]},
+ { path: '', redirectTo: 'login', pathMatch: 'full' },
+ {path: 'forgot',component: ForgotPasswordComponent},
+ {path: 'sign-up', component: SignUpComponent, canActivate: [SecureInnerPageGuard]},
+ {path: 'auth', loadChildren: () => import('./components/master-page/master-page.module').then(m =>m.MasterPageModule)},
 
-    component: LoginComponent,
-
-    children: [
-      { path: 'login',
-       loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
-      { path: 'sign-up',
-       loadChildren: () => import('./sign-up/sign-up.module').then(m => m.SignUpModule) },
-      {path: 'forgot-password',
-      loadChildren: () => import('./forgot-password/forgot-password.module').then(m =>m.ForgotPasswordModule) },
-    ]
-  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{ useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

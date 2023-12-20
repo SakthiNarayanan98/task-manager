@@ -1,39 +1,58 @@
+import { HotToastModule } from '@ngneat/hot-toast';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {RouterModule} from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { UserComponent } from './user/user.component';
-import { TaskComponent } from './task/task.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { LoginModule } from "./login/login.module";
-import { SignUpModule } from "./sign-up/sign-up.module";
-import { ForgotPasswordModule } from "./forgot-password/forgot-password.module";
+import { LoginModule } from "./components/login/login.module";
+import { SignUpModule } from "./components/sign-up/sign-up.module";
+import { ForgotPasswordModule } from "./components/forgot-password/forgot-password.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { MaterialModule } from "./material.module";
+import { MaterialModule } from "./material/material.module";
+import { TaskModule } from "./components/task/task.module";
+import { MasterPageModule } from "../app/components/master-page/master-page.module";
+import { HeaderModule } from "../app/core/header/header.module";
+import { FooterModule } from "../app/core/footer/footer.module";
+import { SidebarModule } from "../app/core/sidebar/sidebar.module";
+import { MasterPageRoutingModule } from "../app/components/master-page/master-page-routing.module";
+import { DashboardModule } from "../app/components/dashboard/dashboard.module";
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../../src/environments/environment';
+import { AuthenticationService } from "../app/core/services/authentication.service";
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    UserComponent,
-    TaskComponent,
-    // ForgotPasswordComponent,
-    // SignUpComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    RouterModule,
     LoginModule,
     SignUpModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
     ForgotPasswordModule,
-    MaterialModule
+    MaterialModule,
+    TaskModule,
+    MasterPageModule,
+    HeaderModule,
+    FooterModule,
+    SidebarModule,
+    MasterPageRoutingModule,
+    DashboardModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth())
+    
+    
+    
+    
+    
   ],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,38 @@
+<div class="container d-flex justify-content-center align-items-center mt-5">
+  <div class="card row shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="card-body">
+      <h2 class="card-title text-center  mb-4">Sign-Up</h2>
+      <form>
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" name="username" #userName placeholder="Enter your username"
+            required>
+        </div>
+
+        <div class="mb-3">
+          <label for="Mobile" class="form-label">Mobile</label>
+          <input type="text" class="form-control" id="mobile" name="Mobile" #phone placeholder="Enter your number" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="Email" class="form-label">Email</label>
+          <input type="text" class="form-control" id="email" name="Email" #email placeholder="Enter your Email" required>
+        </div>
+
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" #password name="password" placeholder="Enter your password"
+            required>
+        </div>
+        <div class="d-grid col">
+        <button type="submit" class="btn btn-primary" (click)="authservice.Register(userName.value,phone.value, email.value, password.value)">Sign-Up</button>
+      </div>
+      </form>
+      <a class=" d-flex justify-content-center">Or</a>
+        <div class="text-center mt-3"> <!-- Add this div for centering the Google button -->
+          <button class="btn btn-primary" type="button" (click)="authservice.GoogleAuth()">Google</button>
+        </div>
+    </div>
+  </div>
+</div>
