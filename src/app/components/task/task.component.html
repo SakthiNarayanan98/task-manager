@@ -1,53 +1,153 @@
+<!-- Your main component template -->
 <div class="container">
-    <div class="card-body">
-      <div class="row  justify-content-end mx-3">
-        <button mat-icon-button  (click)="openDialogWithTemplateRef(dialogContent)">
-          <img src="https://map-vfs-s3.s3.amazonaws.com/testing/images/Add.jpg" alt="img" class="padding">
-        </button>
-      </div>
-      
-        <mat-card class="mt-5">
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">S.no</th>
-                    <th scope="col">TaskName</th>
-                    <th scope="col">EstimateHr</th>
-                    <th scope="col">CreatedDate</th>
-                    <th scope="col">EndDate</th>
-                    <th scope="col">Start</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let task of tasks; let i = index">
-                        <th scope="row">{{ i + 1 }}</th>
-                        <td>{{ task.taskName }}</td>
-                        <td>{{ task.estimateHr }}</td>
-                        <td>{{ task.createdDate }}</td>
-                        <td>{{ task.endDate }}</td>
-                        <td>{{ task.start }}</td>
-                        <td>{{ task.edit }}</td>
-                        <td>{{ task.delete }}</td>
-                    </tr>
-                </tbody>
-              </table>
-        </mat-card>
+  <div class="card-body">
+    <div class="row justify-content-end mx-3">
+      <button mat-icon-button (click)="openDialogWithTemplateRef(dialogContent)">
+        <img src="https://map-vfs-s3.s3.amazonaws.com/testing/images/Add.jpg" alt="img" class="padding">
+      </button>
     </div>
+
+    <mat-card class="mt-5">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">S.no</th>
+            <th scope="col">TaskName</th>
+            <th scope="col">EstimateHr</th>
+            <th scope="col">CreatedDate</th>
+            <th scope="col">EndDate</th>
+            <th scope="col">Start</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of tasks; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ task.assigner }}</td>
+        <td>{{ task.duration  }}</td>
+        <td>{{ task.dueDate | date}}</td>
+        <td>{{ task.estimateHrs | date }}</td>
+        <td> <button mat-icon-button color="primary">
+          <mat-icon>start</mat-icon>
+        </button></td>
+        <td> <button mat-icon-button color="primary">
+          <mat-icon>edit</mat-icon>
+        </button></td>
+        <td><button mat-icon-button color="warn" (click)="deleteTask(task.id)">
+          <mat-icon>delete</mat-icon>
+        </button></td>
+        <!-- <td>{{ task.null }}</td>
+        <td>{{ task.null }}</td> -->
+          </tr>
+        </tbody>
+      </table>
+    </mat-card>
+  </div>
 </div>
 
+<!-- Dialog Template -->
 <ng-template #dialogContent>
-  <div class="example-container">
-    <h5 mat-dialog-title class="p-2 px-3" style="background-color: #3b4f6a; color: #fff;">Alert</h5>
-    <mat-dialog-content class="mx-3 my-2 text-center">
-      <p>Are you sure, want to Delete?</p>
-    </mat-dialog-content>
-    <mat-dialog-actions class="px-2 mb-2 text-center">
-      <button mat-button class="button-save">Yes</button>
-      <button mat-button class="button-cancel" mat-dialog-close>Cancel</button>
-    </mat-dialog-actions>
-  </div>
+  <form [formGroup]="createTask">
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-10">
+          <!-- Title Input -->
+          <mat-form-field appearance="outline" class="mt-5 w-100">
+            <mat-label>Title</mat-label>
+            <input matInput  formControlName="title" placeholder="Enter title">
+          </mat-form-field>
+
+          <!-- Notes Input -->
+          <mat-form-field appearance="outline" class="mt-4 w-100">
+            <mat-label>Notes</mat-label>
+            <input matInput   formControlName="notes" placeholder="Enter notes" rows="4">
+          </mat-form-field>
+
+          <!-- Start and Due Date Inputs -->
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="outline" class="mt-4 w-100">
+                <mat-label>Start Date</mat-label>
+                <input formControlName="startDate"  matInput [matDatepicker]="startDatePicker" placeholder="Select a date">
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field appearance="outline" class="mt-4 w-100">
+                <mat-label>Due Date</mat-label>
+                <input formControlName="dueDate"  matInput [matDatepicker]="dueDatePicker" placeholder="Select a date">
+                <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #dueDatePicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Organizer and Assignees Inputs -->
+          <div class="row align-items-center justify-content-between">
+            <div class="col">
+              <div class="d-flex align-items-center">
+                <mat-icon role="img" aria-hidden="true">supervisor_account</mat-icon>
+                <span class="mx-2">Organizer</span>
+              </div>
+              <div class="d-grid">{{ createTask.get('organizer')?.value }}</div>
+            </div>
+
+            <div class="col">
+              <div class="d-flex align-items-center">
+                <mat-icon role="img" aria-hidden="true">supervisor_account</mat-icon>
+                <span class="mx-2">Assignees</span>
+              </div>
+              <mat-form-field appearance="outline" class="w-100 mt-2">
+                <mat-label>Assignees</mat-label>
+                <mat-select placeholder="Select a name">
+                  <mat-option   *ngFor="let name of names" [value]="name">{{ name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- EstimateHr Input -->
+          <div class="row align-items-center justify-content-between row">
+            <!--Time picker -->
+            <div class="col">
+              <mat-form-field appearance="outline">
+                <mat-label class="control-label" for="timepicker">Estimate Time</mat-label>
+                <input matInput formControlName="estimateHrs" [matDatepicker]="dueDatePicker1" placeholder="Select a date">
+                <mat-datepicker-toggle matSuffix [for]="dueDatePicker1"></mat-datepicker-toggle>
+                <mat-datepicker #dueDatePicker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+
+
+            <div class="col">
+              <mat-form-field appearance="outline" class="w-100 mt-2">
+                <mat-label>Duration</mat-label>
+                <input formControlName="duration"   matInput placeholder="Select a duration">
+              </mat-form-field>
+            </div>
+
+            <div class="col">
+              <mat-form-field appearance="outline" class="w-100 mt-2">
+                <mat-label>Priority</mat-label>
+                <mat-select formControlName="priority"  placeholder="Select a priority">
+                  <mat-option  *ngFor="let category of priority" [value]="category">{{ category }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+
+          <!-- Dialog Actions -->
+          <mat-dialog-actions class="px-2 mt-2 text-center">
+            <button mat-button class="button-save" color="primary" (click)="createNewTask()">Save</button>
+            <button mat-button class="button-cancel" mat-dialog-close color="warn">Cancel</button>
+          </mat-dialog-actions>
+
+        </div>
+      </div>
+    </div>
+  </form>
 </ng-template>
-
-

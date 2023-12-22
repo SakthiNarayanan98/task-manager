@@ -14,6 +14,11 @@ import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgChartsModule } from 'ng2-charts';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
 
 
 
@@ -45,7 +50,11 @@ import { MatDialogModule } from '@angular/material/dialog';
         ToastrModule,
         MatProgressSpinnerModule,
         NgChartsModule,
-        MatDialogModule
+        MatDialogModule,
+        MatOptionModule,
+        MatSelectModule,
+        NgxMatDatetimePickerModule,
+        NgxMatNativeDateModule
     ],
     providers: [ToastrService]
   

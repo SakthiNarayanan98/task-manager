@@ -4,6 +4,9 @@
   "compilerOptions": {
     "types": ["node", "@types/d3-shape"],
     "baseUrl": "./",
+    "paths": {
+      "@mat-datetimepicker/core": ["node_modules/@mat-datetimepicker/core"]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

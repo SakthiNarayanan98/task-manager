@@ -21,6 +21,15 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../../src/environments/environment';
 import { AuthenticationService } from "../app/core/services/authentication.service";
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
+
+
 
 
 @NgModule({
@@ -44,6 +53,11 @@ import { AuthenticationService } from "../app/core/services/authentication.servi
     SidebarModule,
     MasterPageRoutingModule,
     DashboardModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth())
     
@@ -52,7 +66,7 @@ import { AuthenticationService } from "../app/core/services/authentication.servi
     
     
   ],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
