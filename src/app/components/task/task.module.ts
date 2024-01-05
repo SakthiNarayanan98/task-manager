@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 
 
 
+
 @NgModule({
   declarations: [TaskComponent],
   imports: [
@@ -30,6 +31,7 @@ import { MatTableModule } from '@angular/material/table';
     MatTableModule
     
   ],
+  exports: [TaskComponent],
   providers: [DataService]
 })
 

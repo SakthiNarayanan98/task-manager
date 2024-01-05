@@ -6,6 +6,8 @@ import { MaterialModule } from "../../material/material.module";
 import { NgChartsModule } from 'ng2-charts'
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FormsModule } from '@angular/forms';
+import { TaskModule } from "../task/task.module";
+import { TaskComponent } from "../task/task.component";
 
 
 
@@ -18,6 +20,7 @@ import { FormsModule } from '@angular/forms';
         NgxChartsModule,
         NgChartsModule,
         FormsModule,
+        // TaskModule
     ],
     exports: [DashboardComponent]
 

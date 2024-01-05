@@ -2,12 +2,12 @@
 <div class="container my-3">
     <div class="row">
         <!-- Card for 'done' -->
-        <div class="col">
+        <div class="col" (click)="gotoCompleted()">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="bi bi-check-circle-fill" style="color: green;"></i>
                     <div class="card-text">
-                        <div>0 done</div>
+                        <div>{{completedTaskCount}} Completed</div>
                         <div class="text-muted">in the last 7 days</div>
                     </div>
 
@@ -15,12 +15,12 @@
             </div>
         </div>
         <!-- Card for 'updated' -->
-        <div class="col">
+        <div class="col" (click)="gotoHold()">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="bi bi-arrow-up-circle-fill" style="color: blue;"></i>
                     <div class="card-text">
-                        <div>0 updated</div>
+                        <div>{{holdTaskCount}} Hold</div>
                         <div class="text-muted">in the last 7 days</div>
                     </div>
 
@@ -28,12 +28,12 @@
             </div>
         </div>
         <!-- Card for 'created' -->
-        <div class="col">
+        <div class="col" (click)="gotoStart()">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="bi bi-plus-circle-fill" style="color: purple;"></i>
                     <div class="card-text">
-                        <div>0 created</div>
+                        <div>{{createTaskCount}} Started</div>
                         <div class="text-muted">in the last 7 days</div>
                     </div>
 
@@ -41,12 +41,12 @@
             </div>
         </div>
         <!-- Card for 'due' -->
-        <div class="col">
+        <div class="col" (click)="gotoStop()">
             <div class="card text-center">
                 <div class="card-body">
                     <i class="bi bi-clock-fill" style="color: red;"></i>
                     <div class="card-text">
-                        <div>0 due</div>
+                        <div>{{stopTaskCount}} Stop</div>
                         <div class="text-muted">in the next 7 days</div>
                     </div>
 

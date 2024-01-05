@@ -2,7 +2,7 @@
 <div class="container">
   <div class="card-body">
     <div class="row justify-content-end mx-3">
-      <button mat-icon-button (click)="openDialogWithTemplateRef(dialogContent)">
+      <button mat-icon-button (click)="openDialogWithTemplateRef(dialogContent);isCreate = true">
         <img src="https://map-vfs-s3.s3.amazonaws.com/testing/images/Add.jpg" alt="img" class="padding">
       </button>
     </div>
@@ -16,28 +16,32 @@
             <th scope="col">EstimateHr</th>
             <th scope="col">CreatedDate</th>
             <th scope="col">EndDate</th>
+            <!-- <th scope="col">Email</th> -->
             <th scope="col">Start</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
+
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let task of tasks; let i = index">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ task.assigner }}</td>
-        <td>{{ task.duration  }}</td>
-        <td>{{ task.dueDate | date}}</td>
-        <td>{{ task.estimateHrs | date }}</td>
-        <td> <button mat-icon-button color="primary">
-          <mat-icon>start</mat-icon>
-        </button></td>
-        <td> <button mat-icon-button color="primary">
-          <mat-icon>edit</mat-icon>
-        </button></td>
-        <td><button mat-icon-button color="warn" (click)="deleteTask(task.id)">
-          <mat-icon>delete</mat-icon>
-        </button></td>
-        <!-- <td>{{ task.null }}</td>
+            <td>{{ task.duration }}</td>
+            <td>{{ task.dueDate | date}}</td>
+            <td>{{ task.estimateHrs | date }}</td>
+            <!-- <td>{{task.email}}</td> -->
+            <td> <button mat-icon-button color="primary">
+                <mat-icon>start</mat-icon>
+              </button></td>
+            <td> <button mat-icon-button color="primary"
+                (click)="getById(task.id);openDialogWithTemplateRef(dialogContent);isCreate = false">
+                <mat-icon>edit</mat-icon>
+              </button></td>
+            <td><button mat-icon-button color="warn" (click)="deleteTask(task.id)">
+                <mat-icon>delete</mat-icon>
+              </button></td>
+            <!-- <td>{{ task.null }}</td>
         <td>{{ task.null }}</td> -->
           </tr>
         </tbody>
@@ -55,13 +59,13 @@
           <!-- Title Input -->
           <mat-form-field appearance="outline" class="mt-5 w-100">
             <mat-label>Title</mat-label>
-            <input matInput  formControlName="title" placeholder="Enter title">
+            <input matInput formControlName="title" placeholder="Enter title">
           </mat-form-field>
 
           <!-- Notes Input -->
           <mat-form-field appearance="outline" class="mt-4 w-100">
             <mat-label>Notes</mat-label>
-            <input matInput   formControlName="notes" placeholder="Enter notes" rows="4">
+            <input matInput formControlName="notes" placeholder="Enter notes" rows="4">
           </mat-form-field>
 
           <!-- Start and Due Date Inputs -->
@@ -69,7 +73,8 @@
             <div class="col">
               <mat-form-field appearance="outline" class="mt-4 w-100">
                 <mat-label>Start Date</mat-label>
-                <input formControlName="startDate"  matInput [matDatepicker]="startDatePicker" placeholder="Select a date">
+                <input formControlName="startDate" matInput [matDatepicker]="startDatePicker"
+                  placeholder="Select a date">
                 <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #startDatePicker></mat-datepicker>
               </mat-form-field>
@@ -78,7 +83,7 @@
             <div class="col">
               <mat-form-field appearance="outline" class="mt-4 w-100">
                 <mat-label>Due Date</mat-label>
-                <input formControlName="dueDate"  matInput [matDatepicker]="dueDatePicker" placeholder="Select a date">
+                <input formControlName="dueDate" matInput [matDatepicker]="dueDatePicker" placeholder="Select a date">
                 <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
                 <mat-datepicker #dueDatePicker></mat-datepicker>
               </mat-form-field>
@@ -102,8 +107,8 @@
               </div>
               <mat-form-field appearance="outline" class="w-100 mt-2">
                 <mat-label>Assignees</mat-label>
-                <mat-select placeholder="Select a name">
-                  <mat-option   *ngFor="let name of names" [value]="name">{{ name }}</mat-option>
+                <mat-select formControlName="assigner" placeholder="Select a name">
+                  <mat-option *ngFor="let name of assigner" [value]="name">{{ name }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -115,7 +120,8 @@
             <div class="col">
               <mat-form-field appearance="outline">
                 <mat-label class="control-label" for="timepicker">Estimate Time</mat-label>
-                <input matInput formControlName="estimateHrs" [matDatepicker]="dueDatePicker1" placeholder="Select a date">
+                <input matInput formControlName="estimateHrs" [matDatepicker]="dueDatePicker1"
+                  placeholder="Select a date">
                 <mat-datepicker-toggle matSuffix [for]="dueDatePicker1"></mat-datepicker-toggle>
                 <mat-datepicker #dueDatePicker1></mat-datepicker>
               </mat-form-field>
@@ -125,27 +131,52 @@
             <div class="col">
               <mat-form-field appearance="outline" class="w-100 mt-2">
                 <mat-label>Duration</mat-label>
-                <input formControlName="duration"   matInput placeholder="Select a duration">
+                <input formControlName="duration" matInput placeholder="Select a duration">
               </mat-form-field>
             </div>
 
             <div class="col">
               <mat-form-field appearance="outline" class="w-100 mt-2">
                 <mat-label>Priority</mat-label>
-                <mat-select formControlName="priority"  placeholder="Select a priority">
-                  <mat-option  *ngFor="let category of priority" [value]="category">{{ category }}</mat-option>
+                <mat-select formControlName="priority" placeholder="Select a priority">
+                  <mat-option *ngFor="let category of priority" [value]="category">{{ category }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
           </div>
 
+          <div class="col">
+            <!-- Title Input -->
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" placeholder="Enter Email">
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field appearance="outline" *ngIf="!isCreate" class="w-100 mt-2">
+              <mat-label>Task Type</mat-label>
+              <mat-select formControlName="taskType" placeholder="Select a taskType">
+                <mat-option *ngFor="let category of taskType" [value]="category">{{ category }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
 
           <!-- Dialog Actions -->
           <mat-dialog-actions class="px-2 mt-2 text-center">
-            <button mat-button class="button-save" color="primary" (click)="createNewTask()">Save</button>
-            <button mat-button class="button-cancel" mat-dialog-close color="warn">Cancel</button>
-          </mat-dialog-actions>
+            <!-- Save button for new task -->
+            <button mat-button class="button-save" color="primary" *ngIf="isCreate"
+              (click)="createNewTask()">Save</button>
 
+            <!-- Update button for existing task -->
+            <div>
+            <button  mat-button class="button-save" color="primary" *ngIf="!isCreate"
+              (click)="updateClicktask()">Update</button>
+            </div>
+
+            <button mat-button class="button-cancel" mat-dialog-close color="warn" (click)="cancel()">Cancel</button>
+          </mat-dialog-actions>
         </div>
       </div>
     </div>
